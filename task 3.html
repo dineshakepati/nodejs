@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Color Picker Demo</title>
+    <style>
+      .color-picker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .color-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      .color-list {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+      }
+      .color-item {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        transition: transform 0.2s;
+      }
+      .color-item:hover {
+        transform: scale(1.1);
+      }
+      .selected-color {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script>
+      const ColorPicker = ({ colors }) => {
+        const [showColors, setShowColors] = React.useState(false);
+        const [selectedColor, setSelectedColor] = React.useState('');
+
+        const handleColorClick = (color) => {
+          setSelectedColor(color);
+          setShowColors(false);
+        };
+
+        return (
+          React.createElement('div', { className: 'color-picker' },
+            React.createElement('button', {
+              className: 'color-button',
+              onClick: () => setShowColors(!showColors),
+            }, 'Pick a color'),
+            showColors && (
+              React.createElement('ul', { className: 'color-list' },
+                colors.map((color, index) =>
+                  React.createElement('li', {
+                    key: index,
+                    className: 'color-item',
+                    style: { backgroundColor: color },
+                    onClick: () => handleColorClick(color),
+                  })
+                )
+              )
+            ),
+            selectedColor && (
+              React.createElement('div', { className: 'selected-color' },
+                'Selected Color: ',
+                selectedColor
+              )
+            )
+          )
+        );
+      };
+
+      const App = () => {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+
+        return (
+          React.createElement('div', null,
+            React.createElement('h1', null, 'Color Picker Demo'),
+            React.createElement(ColorPicker, { colors })
+          )
+        );
+      };
+
+      ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    </script>
+  </body>
+</html>

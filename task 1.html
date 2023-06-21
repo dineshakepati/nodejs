@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
+    
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    
+    .box {
+      width: 400px;
+      padding: 20px;
+      background-color: white;
+      text-align: center;
+      margin: auto; /* Add this line to center the box */
+    }
+    
+    .inner-box {
+      margin-top: 20px;
+    }
+    
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+    }
+    
+    #wordCount {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <h2>Responsive Paragraph Word Counter</h2>
+      <div class="inner-box">
+        <textarea id="input" placeholder="Type your paragraph here..." oninput="countWords()"></textarea>
+      </div>
+      <p id="wordCount">Word Count: 0</p>
+    </div>
+  </div>
+  
+  <script>
+    function countWords() {
+      const inputText = document.getElementById('input').value;
+      
+      // Count the number of words
+      const words = inputText.trim().split(/\s+/).filter(word => word !== "");
+      document.getElementById('wordCount').textContent = 'Word Count: ' + words.length;
+    }
+  </script>
+</body>
+</html>
